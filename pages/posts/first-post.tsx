@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AppProps } from "next/app";
 import Head from "next/head";
+
 import Layout from "../../components/layout";
 
 export default function FirstPost({}: AppProps) {
