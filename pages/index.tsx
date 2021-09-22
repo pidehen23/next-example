@@ -2,17 +2,11 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import React from "react";
 import Layout, { siteTitle } from "../components/layout";
-import { Inspector } from "react-dev-inspector";
 
 import utilStyles from "../styles/utils.module.scss";
 
-// https://github.com/zthxxx/react-dev-inspector#inspector-component-props
-const InspectorWrapper =
-  process.env.NODE_ENV === "development" ? Inspector : React.Fragment;
-
 export default function Home({}: AppProps) {
   return (
-    <InspectorWrapper keys={["control", "shift", "command", "c"]}>
       <Layout home>
         <Head>
           <title>{siteTitle}</title>
@@ -25,6 +19,5 @@ export default function Home({}: AppProps) {
           </p>
         </section>
       </Layout>
-    </InspectorWrapper>
   );
 }
