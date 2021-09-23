@@ -2,11 +2,12 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import classnames from 'classnames';
 
 import styles from "./layout.module.scss";
 import utilStyles from "../styles/utils.module.scss";
 
-const name = "Your Name";
+const name = "I'm 皮得很";
 export const siteTitle = "Next.js Sample Website";
 
 export default function Layout({
@@ -44,7 +45,7 @@ export default function Layout({
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={classnames(utilStyles.heading2Xl,'text-blue-500')}>{name}</h1>
           </>
         ) : (
           <>

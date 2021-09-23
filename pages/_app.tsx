@@ -1,7 +1,9 @@
-import "../styles/global.scss";
+
 import { AppProps } from "next/app";
 import React from "react";
 import { Inspector } from "react-dev-inspector";
+
+import "../styles/global.scss";
 
 // https://github.com/zthxxx/react-dev-inspector#inspector-component-props
 const InspectorWrapper =

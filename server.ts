@@ -1,6 +1,6 @@
-const express = require("express");
-const next = require("next");
-const inspector = require("react-dev-inspector/plugins/webpack");
+import next from "next";
+import express  from "express";
+import {launchEditorMiddleware} from "react-dev-inspector/plugins/webpack";
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -9,14 +9,14 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-  server.use(inspector.launchEditorMiddleware);
+  server.use(launchEditorMiddleware);
 
   server.all("*", (req, res) => {
-    return handle(req, res);
+    return handle(req, res as any);
   });
 
-  server.listen(port, err => {
-    if (err) throw err;
+  server.listen(port, (...err) => {
+    if (err.length) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
