@@ -1,16 +1,16 @@
 import Head from "next/head";
 import React from "react";
+import Link from 'next/link'
 import { GetStaticPropsContext,InferGetStaticPropsType } from 'next';
 import Layout, { siteTitle } from "../components/layout";
 
 import utilStyles from "../styles/utils.module.scss";
 import { getSortedPostsData } from '../lib/posts';
-import { ParsedUrlQuery } from "node:querystring";
+import Date from '../components/date'
 
-export const getStaticProps= async (context:GetStaticPropsContext<ParsedUrlQuery>) => {
+export const getStaticProps= async (context:GetStaticPropsContext<{}>) => {
   const allPostsData = getSortedPostsData();
-
-  console.log(allPostsData,'====',context);
+  // console.log(allPostsData,'====',context);
 
   return {
     props: {
@@ -41,11 +41,13 @@ export default function Home(props: IProps) {
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
-              {title}
+              <Link href={`/posts/${id}`}>
+                <a>{title}</a>
+              </Link>
               <br />
-              {id}
-              <br />
-              {date}
+              <small className={utilStyles.lightText}>
+                <Date dateString={date}></Date>
+              </small>
             </li>
           ))}
         </ul>
