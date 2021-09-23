@@ -1,11 +1,29 @@
 import Head from "next/head";
-import { AppProps } from "next/app";
 import React from "react";
+import { GetStaticPropsContext,InferGetStaticPropsType } from 'next';
 import Layout, { siteTitle } from "../components/layout";
 
 import utilStyles from "../styles/utils.module.scss";
+import { getSortedPostsData } from '../lib/posts';
+import { ParsedUrlQuery } from "node:querystring";
 
-export default function Home({}: AppProps) {
+export const getStaticProps= async (context:GetStaticPropsContext<ParsedUrlQuery>) => {
+  const allPostsData = getSortedPostsData();
+
+  console.log(allPostsData,'====',context);
+
+  return {
+    props: {
+      allPostsData
+    }
+  }
+}
+
+type IProps =InferGetStaticPropsType<typeof getStaticProps>&{};
+
+export default function Home(props: IProps) {
+ const {allPostsData}=props;
+
   return (
       <Layout home>
         <Head>
@@ -18,6 +36,20 @@ export default function Home({}: AppProps) {
             <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
           </p>
         </section>
+        <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
       </Layout>
   );
 }
